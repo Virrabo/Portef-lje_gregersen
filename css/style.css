@@ -10,14 +10,6 @@
 @font-face {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("../fonts/inter-v20-latin-500.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 600;
   font-display: swap;
   src: url("../fonts/inter-v20-latin-600.woff2") format("woff2");
@@ -39,19 +31,38 @@
   --farge-hover: #1d4ed8;
   --farge-pressed: #1e40af;
   --farge-feil: #b91c1c;
+  --farge-aksent-lys: #eff6ff;
+  --farge-hvit: #ffffff;
 
   /* Layout */
   --side-marg: 16px;
 
   /* Typografi */
-  --font: inter, system-ui, sans-serif;
+  --font: "Inter", system-ui, sans-serif;
   --tekst-storrelse: 1rem;
   --tekst-linjehoyde: 1.5rem;
   --h1-storrelse: 2rem;
   --h1-linjehoyde: 2.5rem;
   --h2-storrelse: 1.5rem;
   --h2-linjehoyde: 2rem;
-  --luft-seksjon: 5.8125rem; /* mobil: 93 px */
+  --h3-storrelse: 1.25rem;
+  --h3-linjehoyde: 1.75rem;
+  --knapp-storrelse: 1rem;
+  --knapp-linjehoyde: 1.5rem;
+  --luft-seksjon: 3.625rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --side-marg: 24px;
+    --h1-storrelse: 3rem;
+    --h1-linjehoyde: 3.5rem;
+    --h2-storrelse: 2rem;
+    --h2-linjehoyde: 2.5rem;
+    --h3-storrelse: 1.5rem;
+    --h3-linjehoyde: 2rem;
+    --luft-seksjon: 3rem;
+  }
 }
 
 /* ---------- Nullstilling ---------- */
@@ -86,13 +97,30 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-/* ---------- Navigasjon (Flexbox) ---------- */
+/* ---------- Navigasjon (Grid på mobil, Flexbox på desktop) ---------- */
+
+header nav {
+  width: 100%;
+}
+
 nav ul {
   list-style: none;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  header nav {
+    width: auto;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }
 
 nav a {
@@ -103,20 +131,29 @@ nav a {
   background-color: var(--farge-bakgrunn);
   color: var(--farge-aksent);
   text-decoration: none;
+  text-align: center;
   font-weight: 600;
+  font-size: var(--knapp-storrelse);
+  line-height: var(--knapp-linjehoyde);
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 nav a:hover {
   background-color: var(--farge-hover);
   border-color: var(--farge-hover);
-  color: #ffffff;
+  color: var(--farge-hvit);
 }
 
 nav a[aria-current="page"] {
   background-color: var(--farge-aksent);
-  color: #ffffff;
+  color: var(--farge-hvit);
+}
+nav a[aria-current="page"]:hover {
+  background-color: var(--farge-hover);
+  border-color: var(--farge-hover);
 }
 /* ---------- Header ---------- */
+
 header {
   display: flex;
   flex-wrap: wrap;
@@ -124,6 +161,7 @@ header {
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem var(--side-marg);
+  width: 100%;
 }
 
 .logo {
@@ -162,6 +200,7 @@ h1 {
   font-size: var(--h1-storrelse);
   line-height: var(--h1-linjehoyde);
   font-weight: 700;
+  text-align: center;
 }
 
 h2 {
@@ -169,7 +208,34 @@ h2 {
   line-height: var(--h2-linjehoyde);
   font-weight: 700;
 }
+h3 {
+  font-size: var(--h3-storrelse);
+  line-height: var(--h3-linjehoyde);
+  font-weight: 700;
+}
 
+/* ---------- Bilder ---------- */
+
+figure {
+  margin: 0;
+}
+
+figure img {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 1rem;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+figcaption {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
 /* ---------- Forside ---------- */
 .forside {
   text-align: center;
@@ -188,24 +254,23 @@ h2 {
 main > * + * {
   margin-top: 1.5rem;
 }
-
-figure {
-  margin: 0;
+/* ---------- Hopp til innhold ---------- */
+.hopp-lenke {
+  position: absolute;
+  top: 0;
+  left: var(--side-marg);
+  padding: 0.75rem 1.25rem;
+  background-color: var(--farge-tekst);
+  color: var(--farge-hvit);
+  font-weight: 600;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transform: translateY(-100%);   /* skjult over skjermen */
 }
 
-figure img {
-  display: block;
-  width: 100%;
-  max-width: 480px;
-  height: auto;
-  margin: 0 auto;
-  border-radius: 1rem;
-}
-
-figcaption {
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-  text-align: center;
+.hopp-lenke:focus {
+  transform: translateY(0);       /* vises ved Tab */
+  outline: 3px solid var(--farge-aksent);
+  outline-offset: 2px;
 }
 
 /* ---------- Knapp ---------- */
@@ -214,9 +279,18 @@ figcaption {
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
   background-color: var(--farge-aksent);
-  color: #ffffff;
+  color: var(--farge-hvit);
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: none;  
+  --knapp-storrelse: 1.125rem;
+  font-size: var(--knapp-storrelse);
+  line-height: var(--knapp-linjehoyde);
+  transition: background-color 200ms ease;
+}
+
+.knapp-rad {
+  text-align: center;
+  margin-top: var(--luft-seksjon);
 }
 
 .knapp:hover {
@@ -227,12 +301,168 @@ figcaption {
   background-color: var(--farge-pressed);
 }
 
+/* ---------- Tekst + bilde  ---------- */
+.tekst-bilde {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.tekst-bilde img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.tekst > * + * {
+  margin-top: 1rem;
+}
+
 @media (min-width: 768px) {
-  :root {
-    --side-marg: 24px;
-    --h1-storrelse: 3rem;
-    --h1-linjehoyde: 3.5rem;
-    --h2-storrelse: 2rem;
-    --h2-linjehoyde: 2.5rem;
+  .tekst-bilde {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
   }
 }
+
+.case + .case {
+  margin-top: 4rem;
+}
+/* ---------- Utvidbare caser (details/summary) ---------- */
+details {
+  margin-top: 1.5rem;
+  border: 2px solid var(--farge-aksent);
+  border-radius: 1rem;
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.75rem;          /* god trykkflate (min. ca. 44 px) */
+  padding: 0.75rem 1.25rem;
+  border-radius: 1rem;
+  color: var(--farge-aksent);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;             /* fjerner standardtrekanten */
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+summary::-webkit-details-marker {
+  display: none;                /* samme, for Safari */
+}
+
+summary:hover {
+  color: var(--farge-hover);
+  background-color: var(--farge-aksent-lys);
+}
+
+summary:focus-visible {
+  outline: 3px solid var(--farge-aksent);
+  outline-offset: 2px;
+}
+
+/* Egen pil som roterer når den åpnes */
+summary::after {
+  content: "";
+  flex-shrink: 0;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 3px solid currentColor;
+  border-bottom: 3px solid currentColor;
+  transform: rotate(45deg);     /* peker ned */
+  transition: transform 200ms ease;
+}
+
+details[open] > summary::after {
+  transform: rotate(-135deg);   /* peker opp */
+}
+
+/* Innholdet inni */
+details > :not(summary) {
+  margin: 1rem 1.25rem 0;
+}
+
+details > :last-child {
+  margin-bottom: 1.25rem;
+}
+
+/* Innholdet fader inn når det åpnes */
+@keyframes apne {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+details[open] > :not(summary) {
+  animation: apne 250ms ease;
+}
+
+/* ---------- Redusert bevegelse ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+.kontakt form {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.felt + .felt {
+  margin-top: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  color: var(--farge-tekst);
+  background-color: var(--farge-hvit);
+  border: 2px solid var(--farge-tekst);
+  border-radius: 0.5rem;
+  transition: border-color 200ms ease;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--farge-aksent);
+  outline-offset: 2px;
+  border-color: var(--farge-aksent);
+}
+
+textarea {
+  resize: vertical;
+}
+.skjema-info {
+  margin-bottom: 2rem;
+}
+.kontakt > p {
+  text-align: center;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+button.knapp {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
