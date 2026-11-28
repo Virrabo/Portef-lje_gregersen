@@ -8,13 +8,12 @@
     <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <body>
-  <a href="#innhold" class="hopp-lenke">Hopp til innhold</a>
+    <a href="#innhold" class="hopp-lenke">Hopp til innhold</a>
     <header>
       <a
         href="index.html"
         class="logo"
-        aria-label="Benjamin Gregersen, til forsiden"
+        aria-label="BG – Benjamin Eidem Gregersen, til forsiden"
         >BG</a
       >
       <nav aria-label="Hovedmeny">
@@ -27,37 +26,49 @@
       </nav>
     </header>
 
-    <main class="kontakt">
-  <h1>Kontakt</h1>
-  <p>Send meg en melding, så svarer jeg så fort jeg kan.</p>
+    <main id="innhold" class="kontakt">
+      <h1>Kontakt</h1>
+      <p>Send meg en melding, så svarer jeg så fort jeg kan.</p>
 
-  <form name="kontakt" method="POST" action="/takk.html" data-netlify="true">
-    <input type="hidden" name="form-name" value="kontakt">
+      <form name="kontakt" method="POST" action="takk.html" data-netlify="true">
+        <input type="hidden" name="form-name" value="kontakt" />
 
-    <div class="felt">
-      <label for="navn">Navn</label>
-      <input type="text" id="navn" name="navn" autocomplete="name" required>
-    </div>
+        <div class="felt">
+          <label for="navn">Navn</label>
+          <input
+            type="text"
+            id="navn"
+            name="navn"
+            autocomplete="name"
+            required
+          />
+        </div>
 
-    <div class="felt">
-      <label for="epost">E-post</label>
-      <input type="email" id="epost" name="epost" autocomplete="email" required>
-    </div>
+        <div class="felt">
+          <label for="epost">E-post</label>
+          <input
+            type="email"
+            id="epost"
+            name="epost"
+            autocomplete="email"
+            required
+          />
+        </div>
 
-    <div class="felt">
-      <label for="melding">Melding</label>
-      <textarea id="melding" name="melding" rows="6" required></textarea>
-    </div>
+        <div class="felt">
+          <label for="melding">Melding</label>
+          <textarea id="melding" name="melding" rows="6" required></textarea>
+        </div>
 
-    <p class="skjema-info">
-      Opplysningene brukes bare til å svare deg. Les mer i
-      <a href="personvern.html">personvernerklæringen</a>.
-    </p>
-    <div class="knapp-rad">
-  <button type="submit" class="knapp">Send melding</button>
-    </div>
-  </form>
-</main>
+        <p class="skjema-info">
+          Opplysningene brukes bare til å svare deg. Les mer i
+          <a href="personvern.html">personvernerklæringen</a>.
+        </p>
+        <div class="knapp-rad">
+          <button type="submit" class="knapp">Send melding</button>
+        </div>
+      </form>
+    </main>
 
     <footer>
       <p class="footer-navn">Benjamin Eidem Gregersen</p>
